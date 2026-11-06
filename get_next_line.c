@@ -6,7 +6,7 @@
 /*   By: abenameu <abenameu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 10:08:37 by abenameu          #+#    #+#             */
-/*   Updated: 2026/11/06 12:01:43 by abenameu         ###   ########.fr       */
+/*   Updated: 2026/11/06 12:40:27 by abenameu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,44 @@ void	ft_strswap(char **line, char buff[])
 	*line = temp;
 }
 
+int	fill_line(char **line, char buff[])
+{
+	int	i;
+
+	i = 0;
+	ft_strswap(line, buff);
+	while (buff[i] && buff[i] != '\n')
+	{
+		(*line)[i] = buff[i];
+		i++;
+	}
+	if (buff[i] == '\n')
+	{
+		(*line)[i] = buff[i];
+		i++;
+	}
+	return (i);
+}
+
+void	rotate_buff(char buff[], int len)
+{
+	
+}
+
 char	*create_line(int fd, char buff[])
 {
 	int		byte;
 	char	*line;
 	char	*temp;
 
-	if (ft_strchr(buff, '\n'))
-		buff = ft_strchr(buff, '\n');
-	byte = 1;
+	line = NULL;
 	temp = NULL;
-	while (byte > 0 && ft_strchr(buff, '\n'))
+	byte = 1;
+	while (byte > 0)
 	{
-		byte =  read(fd, buff, BUFFER_SIZE);
-		if (!line)
-			line = ft_strdup(buff);
-		else
-			ft_strswap(&line, buff);
+		byte = read(fd, buff, BUFFER_SIZE);
+		fill_line(&line, buff);
+
 	}
 	if (byte < 0)
 	{
