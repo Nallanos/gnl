@@ -6,7 +6,7 @@
 /*   By: abenameu <abenameu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 10:08:37 by abenameu          #+#    #+#             */
-/*   Updated: 2026/11/06 11:42:39 by abenameu         ###   ########.fr       */
+/*   Updated: 2026/11/06 12:01:43 by abenameu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_strswap(char **line, char buff[])
 	temp = malloc(ft_strlen(*line) + ft_strlen(buff) + 1);
 	if (!temp)
 		return ;
+	temp[ft_strlen(*line) + ft_strlen(buff)] = '\0';
 	ft_strcat(temp, *line);
 	ft_strcat(temp, buff);
 	free(*line);
@@ -34,7 +35,7 @@ char	*create_line(int fd, char buff[])
 		buff = ft_strchr(buff, '\n');
 	byte = 1;
 	temp = NULL;
-	while (byte > 0 && !ft_strchr(line, '\n'))
+	while (byte > 0 && ft_strchr(buff, '\n'))
 	{
 		byte =  read(fd, buff, BUFFER_SIZE);
 		if (!line)

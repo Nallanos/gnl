@@ -6,7 +6,7 @@
 /*   By: abenameu <abenameu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 10:08:33 by abenameu          #+#    #+#             */
-/*   Updated: 2026/11/06 11:43:58 by abenameu         ###   ########.fr       */
+/*   Updated: 2026/11/06 11:53:10 by abenameu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 
 char	*ft_strdup(const char *s);
 char	*ft_strchr(const char *s, int c);

@@ -6,7 +6,7 @@
 /*   By: abenameu <abenameu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 10:10:09 by abenameu          #+#    #+#             */
-/*   Updated: 2026/11/06 11:28:34 by abenameu         ###   ########.fr       */
+/*   Updated: 2026/11/06 11:58:45 by abenameu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ char	*ft_strdup(const char *s)
 		return (NULL);
 	str[ft_strlen(s)] = '\0';
 	while (s[i] && s[i] != '\n')
+	{
+		str[i] = s[i];
+		i++;
+	}
+	if (s[i] == '\n')
 	{
 		str[i] = s[i];
 		i++;
