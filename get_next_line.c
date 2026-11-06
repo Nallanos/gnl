@@ -6,47 +6,25 @@
 /*   By: abenameu <abenameu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 10:08:37 by abenameu          #+#    #+#             */
-/*   Updated: 2026/11/06 12:40:27 by abenameu         ###   ########.fr       */
+/*   Updated: 2026/11/06 12:53:22 by abenameu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_strswap(char **line, char buff[])
+void	rotate_buff(char buff[])
 {
-	char	*temp;
-	temp = malloc(ft_strlen(*line) + ft_strlen(buff) + 1);
-	if (!temp)
-		return ;
-	temp[ft_strlen(*line) + ft_strlen(buff)] = '\0';
-	ft_strcat(temp, *line);
-	ft_strcat(temp, buff);
-	free(*line);
-	*line = temp;
-}
-
-int	fill_line(char **line, char buff[])
-{
-	int	i;
+	char	*end_of_line;
+	int		i;
 
 	i = 0;
-	ft_strswap(line, buff);
-	while (buff[i] && buff[i] != '\n')
+	end_of_line = ft_strchr(buff, '\n') + 1;
+	while (end_of_line[i])
 	{
-		(*line)[i] = buff[i];
+		buff[i] = end_of_line[i];
 		i++;
 	}
-	if (buff[i] == '\n')
-	{
-		(*line)[i] = buff[i];
-		i++;
-	}
-	return (i);
-}
-
-void	rotate_buff(char buff[], int len)
-{
-	
+	buff[i] = '\0';
 }
 
 char	*create_line(int fd, char buff[])
@@ -58,11 +36,11 @@ char	*create_line(int fd, char buff[])
 	line = NULL;
 	temp = NULL;
 	byte = 1;
-	while (byte > 0)
+	while (byte > 0 && !ft_strchr(line, '\n'))
 	{
+		ft_strswap(&line, buff);
 		byte = read(fd, buff, BUFFER_SIZE);
-		fill_line(&line, buff);
-
+		buff[byte] = '\0';
 	}
 	if (byte < 0)
 	{
@@ -72,6 +50,7 @@ char	*create_line(int fd, char buff[])
 			free(temp);
 		return (NULL);
 	}
+	rotate_buff(buff);
 	return (line);
 }
 char	*get_next_line(int fd)
