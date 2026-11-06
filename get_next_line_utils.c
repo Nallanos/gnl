@@ -6,7 +6,7 @@
 /*   By: abenameu <abenameu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 10:10:09 by abenameu          #+#    #+#             */
-/*   Updated: 2026/11/06 12:44:18 by abenameu         ###   ########.fr       */
+/*   Updated: 2026/11/06 13:10:16 by abenameu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ size_t	ft_strlen(const char *s)
 	i = 0;
 	while (s[i] && s[i] != '\n')
 		i++;
+	if (s[i] == '\n')
+		i++;
 	return (i);
 }
 void	ft_strswap(char **line, char buff[])
@@ -91,7 +93,7 @@ void	ft_strswap(char **line, char buff[])
 	temp = malloc(ft_strlen(*line) + ft_strlen(buff) + 1);
 	if (!temp)
 		return ;
-	temp[ft_strlen(*line) + ft_strlen(buff)] = '\0';
+	temp[0] = '\0';
 	ft_strcat(temp, *line);
 	ft_strcat(temp, buff);
 	free(*line);

@@ -6,28 +6,18 @@
 /*   By: abenameu <abenameu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 10:08:37 by abenameu          #+#    #+#             */
-/*   Updated: 2026/11/06 13:00:53 by abenameu         ###   ########.fr       */
+/*   Updated: 2026/11/06 13:08:29 by abenameu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*free_all(char **lin, char **temp, char **buff)
+void	*free_line(char **lin)
 {
 	if (*lin)
 	{
 		free(*lin);
 		*lin = NULL;
-	}
-	if (*temp)
-	{
-		free(*temp);
-		*temp = NULL;
-	}
-	if (*buff)
-	{
-		free(*buff);
-		*buff = NULL;
 	}
 	return (NULL);
 }
@@ -57,16 +47,14 @@ char	*create_line(int fd, char buff[])
 {
 	int		byte;
 	char	*line;
-	char	*temp;
 
-	line = NULL;
 	byte = 1;
-	temp = ft_strdup(buff);
+	line = ft_strdup(buff);
 	while (byte > 0 && !ft_strchr(line, '\n'))
 	{
 		byte = read(fd, buff, BUFFER_SIZE);
 		if (byte < 0)
-			return (free_all(&line, &temp, NULL));
+			return (free_line(&line));
 		buff[byte] = '\0';
 		ft_strswap(&line, buff);
 	}
@@ -74,11 +62,14 @@ char	*create_line(int fd, char buff[])
 	{
 		if (line)
 			free(line);
-		if (temp)
-			free(temp);
 		return (NULL);
 	}
 	rotate_buff(buff);
+	if (line[0] == '\0')
+	{
+		free(line);
+		return (NULL);
+	}
 	return (line);
 }
 char	*get_next_line(int fd)
