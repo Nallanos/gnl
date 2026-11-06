@@ -52,28 +52,29 @@ char	*ft_strdup(const char *s)
 	}
 	return (str);
 }
-char *ft_strcat(char *dest, const char *src)
-{
-    unsigned int i;
-    unsigned int j;
 
-    i = 0;
-    while (dest[i] != '\0')
-        i++;
-    j = 0;
-    while (src[j] != '\0' && src[j] != '\n')
-    {
-        dest[i] = src[j];
-        i++;
-    j++;
-    }
+char	*ft_strcat(char *dest, const char *src)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (dest[i] != '\0')
+		i++;
+	j = 0;
+	while (src[j] != '\0' && src[j] != '\n')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
 	if (src[j])
 	{
-        dest[i] = src[j];
+		dest[i] = src[j];
 		i++;
 	}
-    dest[i] = '\0';
-    return (dest);
+	dest[i] = '\0';
+	return (dest);
 }
 
 size_t	ft_strlen(const char *s)
@@ -87,9 +88,11 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
 void	ft_strswap(char **line, char buff[])
 {
 	char	*temp;
+
 	temp = malloc(ft_strlen(*line) + ft_strlen(buff) + 1);
 	if (!temp)
 		return ;

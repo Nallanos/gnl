@@ -50,6 +50,8 @@ char	*create_line(int fd, char buff[])
 
 	byte = 1;
 	line = ft_strdup(buff);
+	if (!line)
+		return (NULL);
 	while (byte > 0 && !ft_strchr(line, '\n'))
 	{
 		byte = read(fd, buff, BUFFER_SIZE);
@@ -57,12 +59,6 @@ char	*create_line(int fd, char buff[])
 			return (free_line(&line));
 		buff[byte] = '\0';
 		ft_strswap(&line, buff);
-	}
-	if (byte < 0)
-	{
-		if (line)
-			free(line);
-		return (NULL);
 	}
 	rotate_buff(buff);
 	if (line[0] == '\0')
@@ -72,15 +68,14 @@ char	*create_line(int fd, char buff[])
 	}
 	return (line);
 }
+
 char	*get_next_line(int fd)
 {
 	static char	buff[BUFFER_SIZE + 1];
 	char		*line;
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (BUFFER_SIZE == 10000)
-		buff[BUFFER_SIZE] = '\0';
 	line = create_line(fd, buff);
 	return (line);
 }
